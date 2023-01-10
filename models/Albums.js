@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+mongoose.connect(process.env.{
+    useCreateIndex: true
+});
+
+const mongoose = require('mongoose');
 
 const albumSchema = new mongoose.Schema({
   artist: {
