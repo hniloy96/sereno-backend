@@ -5,6 +5,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const { PORT } = process.env
 const userController = require('./controllers/User-controller')
+const postController = require('./controllers/Post-controller')
 
 
 

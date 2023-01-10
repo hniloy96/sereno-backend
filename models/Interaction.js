@@ -10,12 +10,13 @@ const interactSchema = new mongoose.Schema({
   },
   post: {
     type: mongoose.Types.ObjectId,
-    ref: "Post"
+    ref: "Post",
+    required: true
   },
   owner: {
     type: mongoose.Types.ObjectId,
     ref: "User",
-    // required: true
+    required: true
   }
 },
   {
