@@ -11,8 +11,8 @@ route.use(express.urlencoded({extended: true}))
 route.get('/', async (req,res, next) => {
     try {
 
-        const allReviews = await db.Interaction.find().populate("product")
-        return res.status(200).json(allReviews)
+        const allInteractions = await db.Interaction.find()
+        return res.status(200).json(allInteractions)
     } catch (err) {
         console.error(err)
         return next(err)
@@ -21,9 +21,9 @@ route.get('/', async (req,res, next) => {
 
 route.get('/:id', async (req,res, next) => {
     try {
-        const foundProduct = await db.Post.findById(req.params.id)
-        const allReviews = await db.Interaction.find({product: req.params.id})
-        return res.status(200).json({product: foundProduct, reviews: allReviews})
+        const foundPost = await db.Post.findById(req.params.id)
+        const allInteractions = await db.Interaction.find({product: req.params.id})
+        return res.status(200).json({post: foundPost, interactions: allInteractions})
      } catch (err) {
         console.error(err)
         return next(err)

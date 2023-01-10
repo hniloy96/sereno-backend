@@ -16,7 +16,7 @@ app.use(morgan('dev'))
 
 app.use('/user', userController)
 app.use('/posts', postController)
-app.use('/interaction', interactionController)
+app.use('/interact', interactionController)
 
 app.get('/', (req,res) => {
     res.redirect('/user')
