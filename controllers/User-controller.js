@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require("../models")
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
@@ -30,19 +30,29 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/register', async (req, res, next) => {
     try {
-        // const encrypt = await bcrypt.hash(db.User.password)
-        const createdUser = await db.User.create(req.body)
-        console.log(createdUser)
-        res.status(201).json(createdUser)
+        const salt = await bcrypt.genSalt(10)
+        const passHash = await bcrypt.hash(req.body.password, salt)
+        req.body.password = passHash
 
+        const newUser = await db.User.create(req.body)
+        console.log(createdUser)
+        res.status(201).json({
+            user: newUser,
+            isLpggedIn: true
+        })
+ 
     } catch (err) {
         console.error(err)
         return next(err)
     }
 })
 
+router.post('/login', async (req, res, next) => {})
+
 router.put('/:id', async (req, res) => {
     try {
+        
+
         const updatedPerson = await db.User.findByIdAndUpdate(req.params.id, req.body, { new: true })
         res.status(200).json(updatedPerson)
     } catch (err) {
