@@ -17,11 +17,6 @@ const AlbumSchema = new Schema({
   genre: {
     type: String,
     required: true
-  },
-  label: {
-    type: String,
-    required: true
-  },
   songs: [{
     type: String,
     required: true
@@ -29,11 +24,6 @@ const AlbumSchema = new Schema({
   image: {
     type: String,
     required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
 });
 
 module.exports = mongoose.model('Album', AlbumSchema);
