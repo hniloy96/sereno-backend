@@ -6,8 +6,7 @@ const morgan = require('morgan')
 const { PORT } = process.env
 const userController = require('./controllers/User-controller')
 const postController = require('./controllers/Post-controller')
-
-
+const interactionController = require('./controllers/Interaction-controller')
 
 
 app.use(express.json())
@@ -16,7 +15,8 @@ app.use(cors())
 app.use(morgan('dev'))
 
 app.use('/user', userController)
-
+app.use('/posts', postController)
+app.use('/interaction', interactionController)
 
 app.get('/', (req,res) => {
     res.redirect('/user')
