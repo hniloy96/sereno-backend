@@ -111,33 +111,3 @@ const albums = [
   image: "https://images.genius.com/4d9b9c3e1c3b3e8cd0191f24d7a0e07e.1000x1000x1.jpg",
   genre: "Pop"
 }
-{
-"artist": "Outkast",
-"releaseDate": "2003-09-23",
-"image": "https://images.genius.com/9b9c9d0dd0c8c1279bceadf47b13e7c8.1000x1000x1.jpg",
-"genre": "Hip Hop"
-},
-{
-"artist": "Kendrick Lamar",
-"releaseDate": "2015-03-15",
-"image": "https://images.genius.com/b874bbea7c05e9ca09c9a0ddf1e23c40.1000x1000x1.jpg",
-"genre": "Hip Hop"
-},
-{
-"artist": "Frank Ocean",
-"releaseDate": "2012-08-20",
-"image": "https://images.genius.com/a91a7f6de5b632f8b8afed6c7d6ca9c9.1000x1000x1.jpg",
-"genre": "R&B"
-},
-{
-"artist": "SZA",
-"releaseDate": "2017-11-17",
-"image": "https://images.genius.com/1f3c3d8b863a6c7e6f5a5d5b6ffc8edf.1000x1000x1.jpg",
-"genre": "R&B"
-},
-{
-"artist": "Nas",
-"releaseDate": "1994-09-13",
-"image": "https://images.genius.com/9b9c9d0dd0c8c1279bceadf47b13e7c8.1000x1000x1.jpg",
-"genre": "Hip Hop"
-}
