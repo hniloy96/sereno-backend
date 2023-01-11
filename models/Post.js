@@ -3,7 +3,11 @@ const mongoose = require('mongoose')
 const postSchema = new mongoose.Schema({
   body: {
     type: String,
-    required: true,
+    require: true
+  },
+  comments: {
+    type: Object,
+    contains: []
   },
   owner: {
     type: mongoose.Types.ObjectId,
