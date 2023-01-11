@@ -4,6 +4,8 @@ const db = require("../models")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+const { createUserToken } = require('../middleware/auth')
+
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 
@@ -49,24 +51,25 @@ router.post('/register', async (req, res, next) => {
     }
 })
 
-router.post('/login', async (req, res, next) => {
-    const oldUser = await db.User.findOne({email: req.body.email})
-    if (!oldUser) {
-        return res.json({message: "User not found!"})
-    } else {
-        if (await bcrypt.compare(password, user.password)) {
-            const token = jwt.sign({}, JWTKEY);
-            res.json({data: token})
-            if(res.status(201)) {
-                return res.json({ status: "Ok!", data: token})
-            } else {
-                return res.json({error: "error"})
-            }
-        }
-        return res.json({message: "Password didn't match"})
+router.post("/login", async (req, res, next) => {
+    try {
+      const loggingUser = req.body.username;
+      const foundUser = await db.User.findOne({ username: loggingUser });
+      if (!foundUser) {
+        return res.json({error: 'User not found!'})
+      }
+      const token = await createUserToken(req, foundUser);
+      console.log(token)
+      res.status(200).json({
+        user: foundUser,
+        isLoggedIn: true,
+        token,
+      });
+    } catch (err) {
+      res.status(401).json({ error: err.message });
     }
-   
-})
+  });
+  
 
 router.put('/:id', async (req, res) => {
     try {
