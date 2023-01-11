@@ -1,25 +1,25 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose");  // import mongoose module
 
-const albumSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
+const albumSchema = new mongoose.Schema({  // create a new mongoose schema
+    title: {   // create the title field
+        type: String,  // set the type of the field to string
+        required: true  // set the field as required
     },
-    artist: {
-        type: String,
-        required: true
+    artist: {  // create the artist field
+        type: String,  // set the type of the field to string
+        required: true  // set the field as required
     },
-    releaseDate: {
-        type: Date,
-        required: true
+    releaseDate: {  // create the releaseDate field
+        type: Date,  // set the type of the field to date
+        required: true  // set the field as required
     },
-    tracks: [
-        {
-            title: String,
-            duration: Number
+    tracks: [   // create the tracks field
+        {  //  create the track fields
+            title: String, // set the title field of track as string
+            duration: Number  // set the duration field of track as number
         }
     ]
 });
 
-const Album = mongoose.model('album', albumSchema)
-module.exports = Album;
+const Album = mongoose.model('album', albumSchema)  // create a mongoose model by passing the schema
+module.exports = Album;  // export the Album model
