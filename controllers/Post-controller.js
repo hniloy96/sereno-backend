@@ -2,12 +2,13 @@ const express = require('express')
 const router = express.Router()
 const db = require('../models')
 
+
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
 
 router.get('/', async (req,res, next) => {
     try {
-        const allPost = await db.Post.find()
+        const allPost = await db.Post.find({})
         return res.status(200).json(allPost)
     } catch (err) {
         console.error(err)
@@ -15,16 +16,16 @@ router.get('/', async (req,res, next) => {
     }
 })
 
-// router.get('/:id', async (req,res, next) => {
-//     try {
-//         const foundProduct = await db.Post.findById(req.params.id)
-//         console.log(foundProduct)
-//         return res.status(200).json(foundProduct)
-//     } catch (err) {
-//         console.error(err)
-//         return next(err)
-//     }
-// })
+router.get('/:id', async (req,res, next) => {
+    try {
+        const foundProduct = await db.Post.findById(req.params.id).populate('owner').exec()
+        console.log(foundProduct)
+        return res.status(200).json(foundProduct)
+    } catch (err) {
+        console.error(err)
+        return next(err)
+    }
+})
 
 
 router.post('/', async (req,res,next) => {

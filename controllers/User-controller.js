@@ -2,9 +2,11 @@ const express = require('express')
 const router = express.Router()
 const db = require("../models")
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
+
 
 router.get('/', async (req, res, next) => {
     try {
@@ -35,7 +37,7 @@ router.post('/register', async (req, res, next) => {
         req.body.password = passHash
 
         const newUser = await db.User.create(req.body)
-        console.log(createdUser)
+        console.log(newUser)
         res.status(201).json({
             user: newUser,
             isLpggedIn: true
@@ -47,7 +49,24 @@ router.post('/register', async (req, res, next) => {
     }
 })
 
-router.post('/login', async (req, res, next) => {})
+router.post('/login', async (req, res, next) => {
+    const oldUser = await db.User.findOne({email: req.body.email})
+    if (!oldUser) {
+        return res.json({message: "User not found!"})
+    } else {
+        if (await bcrypt.compare(password, user.password)) {
+            const token = jwt.sign({}, JWTKEY);
+            res.json({data: token})
+            if(res.status(201)) {
+                return res.json({ status: "Ok!", data: token})
+            } else {
+                return res.json({error: "error"})
+            }
+        }
+        return res.json({message: "Password didn't match"})
+    }
+   
+})
 
 router.put('/:id', async (req, res) => {
     try {
