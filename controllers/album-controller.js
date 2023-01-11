@@ -1,53 +1,51 @@
-const express = require('express')
-const router = express.Router()
-const db = require("../models")
-const bcrypt = require('bcrypt')
+const express = require('express')  // import express module
+const router = express.Router()  // create a new router
+const db = require("../models") // import database model
+const bcrypt = require('bcrypt') // import bcrypt to hash the password
 
+// use express middleware to handle json and urlencoded data
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 
+// route to get all the albums from database
 router.get('/', async (req, res, next) => {
     try {
-        const allUser = await db.Album.find()
-        return res.status(200).json(allUser)
+        const allUser = await db.Album.find() // find all the albums from database
+        return res.status(200).json(allUser) // return the result with status 200
     } catch (err) {
         console.error(err)
-        return next(err)
+        return next(err)  // handle the error
     }
 })
 
+// route to get a specific album by id
 router.get('/:id', async (req, res, next) => {
     try {
-        const foundUser = await db.Album.findById(req.params.id)
+        const foundUser = await db.Album.findById(req.params.id) // find album by id
         console.log(foundUser)
-        return res.status(200).json(foundUser)
+        return res.status(200).json(foundUser) // return the result with status 200
     } catch (err) {
         console.error(err)
-        return next(err)
+        return next(err)  // handle the error
     }
 })
 
-
+// route to register a new album
 router.post('/register', async (req, res, next) => {
     try {
-        const salt = await bcrypt.genSalt(10)
-        const passHash = await bcrypt.hash(req.body.password, salt)
-        req.body.password = passHash
-
-        const newUser = await db.Album.create(req.body)
+        const salt = await bcrypt.genSalt(10) // generate a salt
+        const passHash = await bcrypt.hash(req.body.password, salt) // hash the password
+        req.body.password = passHash  // replace the original password with the hashed password
+        const newUser = await db.Album.create(req.body) // create new album
         console.log(createdUser)
         res.status(201).json({
             user: newUser,
-            isLpggedIn: true
+            isLoggedIn: true  // return the new album and a flag indicating that the user is logged in
         })
- 
     } catch (err) {
         console.error(err)
-        return next(err)
+        return next(err)  // handle the error
     }
 })
-
-
-
 
 module.exports = router
