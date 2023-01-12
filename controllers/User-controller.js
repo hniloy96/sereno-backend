@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const db = require("../models")
+const User = require("../models/User")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -12,7 +12,7 @@ router.use(express.urlencoded({ extended: true }))
 
 router.get('/', async (req, res, next) => {
     try {
-        const allUser = await db.User.find()
+        const allUser = await User.find()
         return res.status(200).json(allUser)
     } catch (err) {
         console.error(err)
@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const foundUser = await db.User.findById(req.params.id)
+        const foundUser = await User.findById(req.params.id)
         console.log(foundUser)
         return res.status(200).json(foundUser)
     } catch (err) {
@@ -40,7 +40,7 @@ router.post('/register', async (req, res, next) => {
         const rawPWStore = req.body.password
         req.body.password = passHash
 
-        const newUser = await db.User.create(req.body)
+        const newUser = await User.create(req.body)
 
         if(newUser){
             req.body.password=rawPWStore
@@ -63,7 +63,7 @@ router.post('/register', async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
     try {
       const loggingUser = req.body.username;
-      const foundUser = await db.User.findOne({ username: loggingUser });
+      const foundUser = await User.findOne({ username: loggingUser });
       if (!foundUser) {
         return res.json({error: 'User not found!'})
       }
@@ -84,7 +84,7 @@ router.put('/:id', async (req, res) => {
     try {
         
 
-        const updatedPerson = await db.User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const updatedPerson = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
         res.status(200).json(updatedPerson)
     } catch (err) {
         res.status(400).json({ error: err })
@@ -94,7 +94,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const deletedUser = await db.User.findByIdAndDelete(req.params.id)
+        const deletedUser = await User.findByIdAndDelete(req.params.id)
         console.log(deletedUser)
         res.redirect('/')
     } catch (err) {
