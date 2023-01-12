@@ -20,8 +20,9 @@ router.get('/', async (req,res, next) => {
 router.get('/:id', async (req,res, next) => {
     try {
         const foundProduct = await db.Post.findById(req.params.id)
+        const foundComments = await db.Interaction.find({ post: req.params.id})
         console.log(foundProduct)
-        return res.status(200).json(foundProduct)
+        return res.status(200).json({post: foundProduct, comments: foundComments})
     } catch (err) {
         console.error(err)
         return next(err)

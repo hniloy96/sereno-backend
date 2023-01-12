@@ -21,9 +21,9 @@ router.get('/', async (req, res, next) => {
 // route to get a specific album by id
 router.get('/:id', async (req, res, next) => {
     try {
-        const foundUser = await db.Album.findById(req.params.id) // find album by id
-        console.log(foundUser)
-        return res.status(200).json(foundUser) // return the result with status 200
+        const foundAlbum = await db.Album.findById(req.params.id)
+         // find album by id
+        return res.status(200).json(foundAlbum) // return the result with status 200
     } catch (err) {
         console.error(err)
         return next(err)  // handle the error
