@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../test-models')
+const db = require('../models')
 const { handleValidateOwnership, requireToken } = require('../middleware/auth')
 
 
