@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 const { Strategy, ExtractJwt } = require('passport-jwt')
 
-const User = require('../models/User')
+const User = require('../test-models/User')
 
 const secret = process.env.JWT_SECRET || 'yolo unique secrets'
 

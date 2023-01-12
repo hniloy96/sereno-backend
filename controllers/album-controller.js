@@ -1,6 +1,6 @@
 const express = require('express')  // import express module
 const router = express.Router()  // create a new router
-const db = require("../models") // import database model
+const db = require("../test-models") // import database model
 const bcrypt = require('bcrypt') // import bcrypt to hash the password
 
 // use express middleware to handle json and urlencoded data
