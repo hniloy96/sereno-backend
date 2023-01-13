@@ -7,7 +7,8 @@ const { PORT } = process.env //get the port from environment variable
 const userController = require('./controllers/User-controller') //import user controller 
 const postController = require('./controllers/Post-controller') //import post controller 
 const albumController = require('./controllers/album-controller') //import album controller 
-const interactionCOntroller = require('./controllers/interaction-controller')
+const interactionController = require('./controllers/interaction-controller')
+const albumcommentController = require('./controllers/Al-comments-contreoller')
 
 // parse incoming request bodies in a middleware before handlers
 app.use(express.json())
@@ -19,7 +20,8 @@ app.use(morgan('dev')) //use morgan in dev mode
 app.use('/user', userController) //user route
 app.use('/posts', postController) //post route
 app.use('/albums', albumController) //album route
-app.use('/interaction', interactionCOntroller)
+app.use('/interaction', interactionController)
+app.use('/comments', albumcommentController)
 
 // redirect to user route
 app.get('/', (req,res) => {

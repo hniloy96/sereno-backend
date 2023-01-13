@@ -22,8 +22,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const foundAlbum = await db.Album.findById(req.params.id)
+        const foundComments = await db.AlbumComment.find({ album: req.params.id})
          // find album by id
-        return res.status(200).json(foundAlbum) // return the result with status 200
+         return res.status(200).json({album: foundAlbum, comments: foundComments})
     } catch (err) {
         console.error(err)
         return next(err)  // handle the error

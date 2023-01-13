@@ -9,7 +9,7 @@ router.use(express.urlencoded({extended: true}))
 
 router.get('/', async (req,res, next) => {
     try {
-        const allComment = await db.Interaction.find({})
+        const allComment = await db.AlbumComment.find({})
         return res.status(200).json(allComment)
     } catch (err) {
         console.error(err)
@@ -17,24 +17,11 @@ router.get('/', async (req,res, next) => {
     }
 })
 
-router.get('/:id', async (req,res, next) => {
+router.post('/', async (req,res) => {
     try {
-        const foundComment = await db.Interaction.findById(req.params.id)
-        console.log(foundComment)
-        
-        return res.status(200).json(foundProduct)
-    } catch (err) {
-        console.error(err)
-        return next(err)
-    }
-})
-
-
-router.post('/', requireToken, async (req,res) => {
-    try {
-        const owner = req.user._id
-        req.body.owner = owner
-        const createdComment = await db.Interaction.create(req.body)
+        // const owner = req.user._id
+        // req.body.owner = owner
+        const createdComment = await db.AlbumComment.create(req.body)
         console.log(createdComment)
         res.status(201).json(createdComment)
     } catch (err) {
