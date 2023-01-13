@@ -21,6 +21,7 @@ router.get('/:id', async (req,res, next) => {
     try {
         const foundComment = await db.Interaction.findById(req.params.id)
         console.log(foundComment)
+        
         return res.status(200).json(foundProduct)
     } catch (err) {
         console.error(err)
@@ -29,16 +30,17 @@ router.get('/:id', async (req,res, next) => {
 })
 
 
-router.post('/', requireToken, async (req,res,next) => {
+router.post('/', requireToken, async (req,res) => {
     try {
         const owner = req.user._id
         req.body.owner = owner
+        const post = req.params.id
+        req.body.post = post
         const createdComment = await db.Interaction.create(req.body)
         console.log(createdComment)
         res.status(201).json(createdComment)
     } catch (err) {
         console.error(err)
-        return next(err)
     }
 })
 

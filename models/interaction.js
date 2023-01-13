@@ -4,10 +4,6 @@ const interactionSchema = new mongoose.Schema({
   comments: {
     type: Array,
     default: [],
-    require: true
-  },
-  likes: {
-    type: Boolean
   },
   post:{
     type: mongoose.Types.ObjectId,

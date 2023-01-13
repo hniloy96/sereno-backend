@@ -9,16 +9,13 @@ const albumSchema = new mongoose.Schema({  // create a new mongoose schema
         type: String,  // set the type of the field to string
         required: true  // set the field as required
     },
-    releaseDate: {  // create the releaseDate field
-        type: Date,  // set the type of the field to date
-        required: true  // set the field as required
+    tracks: {
+        type: Array,
+        default: []
     },
-    tracks: [   // create the tracks field
-        {  //  create the track fields
-            title: String, // set the title field of track as string
-            duration: Number  // set the duration field of track as number
-        }
-    ]
+    image: {
+        type: String,
+    }
 });
 
 const Album = mongoose.model('album', albumSchema)  // create a mongoose model by passing the schema

@@ -5,10 +5,6 @@ const postSchema = new mongoose.Schema({
     type: String,
     require: true
   },
-  comments: {
-    type: Object,
-    contains: []
-  },
   owner: {
     type: mongoose.Types.ObjectId,
     ref: "User",

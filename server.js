@@ -18,7 +18,7 @@ app.use(morgan('dev')) //use morgan in dev mode
 // routes handling 
 app.use('/user', userController) //user route
 app.use('/posts', postController) //post route
-app.use('/album', albumController) //album route
+app.use('/albums', albumController) //album route
 app.use('/interaction', interactionCOntroller)
 
 // redirect to user route

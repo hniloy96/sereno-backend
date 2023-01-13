@@ -30,21 +30,15 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-// route to register a new album
-router.post('/register', async (req, res, next) => {
+// route to post a new album
+router.post('/', async (req, res, next) => {
     try {
-        const salt = await bcrypt.genSalt(10) // generate a salt
-        const passHash = await bcrypt.hash(req.body.password, salt) // hash the password
-        req.body.password = passHash  // replace the original password with the hashed password
-        const newUser = await db.Album.create(req.body) // create new album
-        console.log(createdUser)
-        res.status(201).json({
-            user: newUser,
-            isLoggedIn: true  // return the new album and a flag indicating that the user is logged in
-        })
+        const newAlbum = await db.Album.create(req.body)
+        console.log(newAlbum)
+        res.status(201).json(newAlbum)
     } catch (err) {
         console.error(err)
-        return next(err)  // handle the error
+        return next(err)
     }
 })
 
