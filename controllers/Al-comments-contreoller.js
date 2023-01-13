@@ -17,10 +17,10 @@ router.get('/', async (req,res, next) => {
     }
 })
 
-router.post('/', async (req,res) => {
+router.post('/', requireToken, async (req,res) => {
     try {
-        // const owner = req.user._id
-        // req.body.owner = owner
+        const owner = req.user._id
+        req.body.owner = owner
         const createdComment = await db.AlbumComment.create(req.body)
         console.log(createdComment)
         res.status(201).json(createdComment)
