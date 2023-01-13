@@ -31,7 +31,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-// route to post a new album
+// route to post a new album, this will be done only through the develepors
 router.post('/', async (req, res, next) => {
     try {
         const newAlbum = await db.Album.create(req.body)

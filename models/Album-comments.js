@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+//a schema for creating album data
 const albumCommentSchema = new mongoose.Schema({
   comment: {
     type: String,

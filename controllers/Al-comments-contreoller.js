@@ -7,16 +7,8 @@ const { requireToken } = require('../middleware/auth')
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
 
-router.get('/', async (req,res, next) => {
-    try {
-        const allComment = await db.AlbumComment.find({})
-        return res.status(200).json(allComment)
-    } catch (err) {
-        console.error(err)
-        return next(err)
-    }
-})
 
+// to create comments on an album thread
 router.post('/', requireToken, async (req,res) => {
     try {
         const owner = req.user._id

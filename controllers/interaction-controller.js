@@ -7,6 +7,7 @@ const { requireToken } = require('../middleware/auth')
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
 
+// this is to get all comments
 router.get('/', async (req,res, next) => {
     try {
         const allComment = await db.Interaction.find({})
@@ -17,19 +18,8 @@ router.get('/', async (req,res, next) => {
     }
 })
 
-router.get('/:id', async (req,res, next) => {
-    try {
-        const foundComment = await db.Interaction.findById(req.params.id)
-        console.log(foundComment)
-        
-        return res.status(200).json(foundProduct)
-    } catch (err) {
-        console.error(err)
-        return next(err)
-    }
-})
 
-
+// this is to post comments on the posts
 router.post('/', requireToken, async (req,res) => {
     try {
         const owner = req.user._id

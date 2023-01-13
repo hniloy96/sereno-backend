@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+//a schema for creating interaction data
 const interactionSchema = new mongoose.Schema({
   comments: {
     type: Array,

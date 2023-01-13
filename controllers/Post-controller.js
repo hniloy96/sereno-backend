@@ -7,6 +7,7 @@ const { handleValidateOwnership, requireToken } = require('../middleware/auth')
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
 
+//api call for all the posts
 router.get('/', async (req,res, next) => {
     try {
         const allPost = await db.Post.find({})
@@ -17,6 +18,7 @@ router.get('/', async (req,res, next) => {
     }
 })
 
+//this is pulling individual post and all of its comment contents
 router.get('/:id', async (req,res, next) => {
     try {
         const foundProduct = await db.Post.findById(req.params.id)
@@ -28,7 +30,7 @@ router.get('/:id', async (req,res, next) => {
     }
 })
 
-
+// to create new posts
 router.post('/', requireToken, async (req,res,next) => {
     try {
         const owner = req.user._id
@@ -42,19 +44,7 @@ router.post('/', requireToken, async (req,res,next) => {
     }
 })
 
-router.post('/:id', async (req,res) => {
-    try {
-        // const owner = req.user._id
-        // req.body.owner = owner
-        const createdPost = await db.Interaction.create(req.body)
-        console.log(createdPost)
-        res.status(201).json(createdPost)
-    } catch (err) {
-        console.error(err)
-    }
-})
-
-
+// to update a post
 router.put('/:id', requireToken, async (req,res,next) => {
     try {
         handleValidateOwnership(req, await db.Post.findById(req.params.id))
@@ -68,6 +58,7 @@ router.put('/:id', requireToken, async (req,res,next) => {
    
 })
 
+// to delete a post 
 router.delete('/:id', requireToken, async (req,res,next) => {
    try {
     handleValidateOwnership(req, await db.Post.findById(req.params.id))

@@ -9,7 +9,7 @@ const { createUserToken } = require('../middleware/auth')
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 
-
+// to get all user infos
 router.get('/', async (req, res, next) => {
     try {
         const allUser = await User.find()
@@ -20,6 +20,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
+// to get an individual user info
 router.get('/:id', async (req, res, next) => {
     try {
         const foundUser = await User.findById(req.params.id)
@@ -31,7 +32,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-
+// to sign up for the site
 router.post('/register', async (req, res, next) => {
     try {
         const salt = await bcrypt.genSalt(10)
@@ -60,6 +61,7 @@ router.post('/register', async (req, res, next) => {
     }
 })
 
+// to log in to the site
 router.post("/login", async (req, res, next) => {
     try {
       const loggingUser = req.body.username;
@@ -79,7 +81,7 @@ router.post("/login", async (req, res, next) => {
     }
   });
   
-
+// will use these later to update user info and delete user
 router.put('/:id', async (req, res) => {
     try {
         
