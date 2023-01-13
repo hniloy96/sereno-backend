@@ -1,10 +1,9 @@
-const { string } = require('joi');
 const mongoose = require('mongoose')
 
 const interactionSchema = new mongoose.Schema({
   comments: {
-    type: String,
-    required: true
+    type: Array,
+    default: [],
   },
   post:{
     type: mongoose.Types.ObjectId,
